@@ -1,5 +1,5 @@
 import type { Request } from 'express';
-import { Controller, Get, Post,Body, Req, Param, Patch, Query } from '@nestjs/common';
+import { Controller, Get, Post,Body, Req, Param, Patch, Query, Delete } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-users.dto';
 
@@ -10,13 +10,12 @@ export class UsersController {
 
     @Get()
     findAll(@Query('role') role?: 'intern'| 'admin'){
-        return this.usersService.findAll();
-        return {role}
+        return this.usersService.findAll(role);
     }
 
     @Get(":id")
-    findOne(@Param('id') id:number){
-        return {id}
+    findOne(@Param('id') id:string){
+        return this.usersService.findOne(+id)
     }
 
     @Post()
@@ -31,8 +30,14 @@ export class UsersController {
     }
 
     @Patch(":id")
-    update(@Param('id') id:string){
-        return {id}
+    update(@Param('id') id:string, @Body() userUpdate: {name?: string, role?: 'intern'| 'admin' }) {
+        return this.usersService.update(+id, userUpdate)
     }
+
+    @Delete(":id")
+    delete(@Param('id') id:string){
+        return this.usersService.delete(+id)
+    } 
+    
 
 }

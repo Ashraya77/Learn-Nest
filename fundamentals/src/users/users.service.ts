@@ -44,7 +44,7 @@ export class UsersService {
 
     create(user: CreateUserDto) {
 
-        const usersByHigh = [...this.users].sort((a, b) => b.id = a.id)
+        const usersByHigh = [...this.users].sort((a, b) => b.id - a.id)
 
         const newUser = {
             id: usersByHigh[0].id + 1,
@@ -70,6 +70,4 @@ export class UsersService {
         this.users = this.users.filter(user => user.id !== id)
         return removedUser
     }
-
-
 }

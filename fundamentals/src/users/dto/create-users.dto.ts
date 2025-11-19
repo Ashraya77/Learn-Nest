@@ -4,7 +4,7 @@ export class CreateUserDto{
   
 
     @IsString()
-    @IsNotEmpty
+    @IsNotEmpty()
     name: string;
     
     @IsEnum(['intern', 'admin'], {
